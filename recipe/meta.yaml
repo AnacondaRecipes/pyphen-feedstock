@@ -1,6 +1,5 @@
 {% set name = "pyphen" %}
-
-{% set version = "0.13.2" %}
+{% set version = "0.14.0" %}
 
 
 
@@ -10,34 +9,35 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 847f57a043a58408f24670ae0184ff6edfb5fd5731743208228c028ddc514438
+  sha256: 596c8b3be1c1a70411ba5f6517d9ccfe3083c758ae2b94a45f2707346d8e66fa
 
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: True  # [py<37]
 
 requirements:
   host:
     - flit-core >=3.2,<4
     - pip
-    - python >=3.7
+    - python
 
   run:
-    - python >=3.7
+    - python
 
 test:
   imports:
     - pyphen
-  commands:
-    - pip check
   requires:
     - pip
+  commands:
+    - pip check
 
 about:
-  home: http://pyphen.org/
+  home: https://pyphen.org/
   license: GPL-2.0-or-later AND LGPL-2.1-or-later AND MPL-1.1
+  license_family: Other
   license_file:
     - LICENSE
     - COPYING.GPL
@@ -47,7 +47,7 @@ about:
   description: |
     Pyphen is a pure Python module to hyphenate text using existing Hunspell
     hyphenation dictionaries.
-  doc_url: http://pyphen.org/
+  doc_url: https://doc.courtbouillon.org/pyphen
   dev_url: https://github.com/Kozea/Pyphen
 
 extra:
