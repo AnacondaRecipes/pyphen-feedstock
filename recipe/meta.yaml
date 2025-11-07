@@ -38,7 +38,7 @@ test:
 
 about:
   home: https://pyphen.org
-  license: GPL-2.0-or-later AND LGPL-2.1-or-later AND MPL-2.0
+  license: GPL-2.0-or-later AND LGPL-2.1-or-later AND MPL-1.1
   license_family: Other
   license_file:
     - LICENSE
