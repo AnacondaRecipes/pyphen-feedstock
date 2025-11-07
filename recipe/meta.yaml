@@ -1,42 +1,44 @@
 {% set name = "pyphen" %}
-{% set version = "0.14.0" %}
-
-
+{% set version = "0.17.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 596c8b3be1c1a70411ba5f6517d9ccfe3083c758ae2b94a45f2707346d8e66fa
-
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: f60647a9c9b30ec6c59910097af82bc5dd2d36576b918e44148d8b07ef3b4aa3
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  skip: True  # [py<37]
+  skip: True  # [py<39]
 
 requirements:
   host:
     - flit-core >=3.2,<4
     - pip
     - python
-
   run:
     - python
 
 test:
+  source_files:
+    - tests
+    - pyphen
   imports:
     - pyphen
   requires:
     - pip
+    - pytest
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -ra -v --tb=short tests
 
 about:
-  home: https://pyphen.org/
-  license: GPL-2.0-or-later AND LGPL-2.1-or-later AND MPL-1.1
+  home: https://pyphen.org
+  license: GPL-2.0-or-later AND LGPL-2.1-or-later AND MPL-2.0
   license_family: Other
   license_file:
     - LICENSE
