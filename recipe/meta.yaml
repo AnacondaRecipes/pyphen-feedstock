@@ -1,22 +1,22 @@
 {% set name = "pyphen" %}
-{% set version = "0.17.2" %}
+{% set version = "0.18.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f60647a9c9b30ec6c59910097af82bc5dd2d36576b918e44148d8b07ef3b4aa3
+  sha256: dbae6fbbe4f01cb206108b43573d857c67107be9d0e38eb1b08d6fa2210634a7
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  skip: True  # [py<39]
+  skip: true  # [py<310]
 
 requirements:
   host:
-    - flit-core >=3.2,<4
+    - flit-core >=3.2,<5
     - pip
     - python
   run:
